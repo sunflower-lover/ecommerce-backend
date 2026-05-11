@@ -1,0 +1,74 @@
+### ============================================
+### AUTHENTICATION API TESTS
+### ============================================
+
+### Register a new user
+POST http://localhost:54955/api/auth/register
+Content-Type: application/json
+
+{
+    "email": "john@example.com",
+    "password": "password123",
+    "firstName": "John",
+    "lastName": "Doe"
+}
+
+### Register another user
+POST http://localhost:54955/api/auth/register
+Content-Type: application/json
+
+{
+    "email": "jane@example.com",
+    "password": "password456",
+    "firstName": "Jane",
+    "lastName": "Smith"
+}
+
+### Register admin user (will be regular user role)
+POST http://localhost:54955/api/auth/register
+Content-Type: application/json
+
+{
+    "email": "admin@example.com",
+    "password": "admin123",
+    "firstName": "Admin",
+    "lastName": "User"
+}
+
+### Login with John
+POST http://localhost:54955/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "john@example.com",
+    "password": "password123"
+}
+
+### Login with Jane
+POST http://localhost:54955/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "jane@example.com",
+    "password": "password456"
+}
+
+### Login with wrong password (should fail)
+POST http://localhost:54955/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "john@example.com",
+    "password": "wrongpassword"
+}
+
+### Register with existing email (should fail)
+POST http://localhost:54955/api/auth/register
+Content-Type: application/json
+
+{
+    "email": "john@example.com",
+    "password": "password123",
+    "firstName": "Duplicate",
+    "lastName": "User"
+}

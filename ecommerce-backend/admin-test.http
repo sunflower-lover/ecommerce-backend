@@ -1,0 +1,67 @@
+### ==================== ADMIN API TESTS ====================
+### All endpoints require ADMIN role
+
+### 1. Login as Admin
+POST http://localhost:54955/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "admin@gmail.com",
+    "password": "admin123"
+}
+
+> {% client.global.set("token", response.body.token); %}
+
+### ==================== USER MANAGEMENT ====================
+
+### 2. Get all users
+GET http://localhost:54955/api/admin/users
+Authorization: Bearer {{token}}
+
+### 3. Get user by ID
+GET http://localhost:54955/api/admin/users/1
+Authorization: Bearer {{token}}
+
+### 4. Update user role (change user to ADMIN)
+PUT http://localhost:54955/api/admin/users/2/role?role=ADMIN
+Authorization: Bearer {{token}}
+
+### 5. Update user role (change user back to USER)
+PUT http://localhost:54955/api/admin/users/2/role?role=USER
+Authorization: Bearer {{token}}
+
+### 6. Enable/disable user
+PUT http://localhost:54955/api/admin/users/2/status?enabled=false
+Authorization: Bearer {{token}}
+
+### 7. Delete user (be careful!)
+DELETE http://localhost:54955/api/admin/users/3
+Authorization: Bearer {{token}}
+
+### ==================== ORDER MANAGEMENT ====================
+
+### 8. Get all orders
+GET http://localhost:54955/api/admin/orders
+Authorization: Bearer {{token}}
+
+### 9. Get orders by status
+GET http://localhost:54955/api/admin/orders/status/PENDING
+Authorization: Bearer {{token}}
+
+### 10. Update order status
+PUT http://localhost:54955/api/admin/orders/1/status?status=CONFIRMED
+Authorization: Bearer {{token}}
+
+### 11. Update payment status
+PUT http://localhost:54955/api/admin/orders/1/payment?paymentStatus=PAID
+Authorization: Bearer {{token}}
+
+### 12. Add tracking number
+PUT http://localhost:54955/api/admin/orders/1/tracking?trackingNumber=1Z999AA10123456784
+Authorization: Bearer {{token}}
+
+### ==================== DASHBOARD STATISTICS ====================
+
+### 13. Get dashboard stats
+GET http://localhost:54955/api/admin/stats
+Authorization: Bearer {{token}}

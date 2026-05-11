@@ -1,0 +1,57 @@
+{
+    "users": [
+        {
+            "email": "john@example.com",
+            "password": "password123",
+            "firstName": "John",
+            "lastName": "Doe"
+        },
+        {
+            "email": "jane@example.com",
+            "password": "password456",
+            "firstName": "Jane",
+            "lastName": "Smith"
+        }
+    ],
+    "products": [
+        {
+            "name": "Gaming Laptop",
+            "description": "High-performance gaming laptop",
+            "sku": "LAP-001",
+            "price": 1299.99,
+            "stockQuantity": 50,
+            "category": "Electronics"
+        },
+        {
+            "name": "Wireless Mouse",
+            "description": "Ergonomic wireless mouse",
+            "sku": "MOU-002",
+            "price": 29.99,
+            "stockQuantity": 200,
+            "category": "Electronics"
+        },
+        {
+            "name": "Mechanical Keyboard",
+            "description": "RGB mechanical keyboard",
+            "sku": "KEY-003",
+            "price": 89.99,
+            "stockQuantity": 100,
+            "category": "Electronics"
+        }
+    ],
+    "expectedCartTotal": 1419.97,
+    "apiEndpoints": [
+        "POST   /api/auth/register",
+        "POST   /api/auth/login",
+        "GET    /api/products",
+        "POST   /api/products",
+        "GET    /api/products/{id}",
+        "PUT    /api/products/{id}",
+        "DELETE /api/products/{id}",
+        "GET    /api/cart",
+        "POST   /api/cart/add/{productId}",
+        "PUT    /api/cart/update/{productId}",
+        "DELETE /api/cart/remove/{productId}",
+        "DELETE /api/cart/clear"
+    ]
+}

@@ -1,0 +1,39 @@
+### Test 1: Get non-existent product (404)
+GET http://localhost:54955/api/products/999
+
+### Expected Response:
+# {
+#     "status": 404,
+#     "error": "Resource Not Found",
+#     "message": "Product not found with id: '999'"
+# }
+
+### Test 2: Create duplicate product (409)
+POST http://localhost:54955/api/products
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Duplicate Product",
+    "sku": "LAP-001",
+    "price": 99.99,
+    "stockQuantity": 10,
+    "category": "Electronics"
+}
+
+### Test 3: Invalid login (401)
+POST http://localhost:54955/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "wrong@email.com",
+    "password": "wrongpassword"
+}
+
+### Test 4: Access admin endpoint without admin role (403)
+GET http://localhost:54955/api/admin/users
+Authorization: Bearer {{user_token}}
+
+### Test 5: Add to cart with insufficient stock (409)
+POST http://localhost:54955/api/cart/add/1?quantity=999999
+Authorization: Bearer {{token}}

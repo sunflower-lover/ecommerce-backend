@@ -1,0 +1,62 @@
+### First, login to get token
+POST http://localhost:54955/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "test@example.com",
+    "password": "password123"
+}
+
+### Save the token and replace YOUR_TOKEN below
+
+### Add items to cart first
+POST http://localhost:54955/api/cart/add/1?quantity=2
+Authorization: Bearer YOUR_TOKEN
+
+POST http://localhost:54955/api/cart/add/2?quantity=1
+Authorization: Bearer YOUR_TOKEN
+
+### Create Order
+POST http://localhost:54955/api/orders
+Content-Type: application/json
+Authorization: Bearer YOUR_TOKEN
+
+{
+    "shippingAddress": "123 Main St, New York, NY 10001",
+    "billingAddress": "123 Main St, New York, NY 10001",
+    "paymentMethod": "CREDIT_CARD",
+    "shippingMethod": "Express",
+    "notes": "Please leave at front door"
+}
+
+### Get all my orders
+GET http://localhost:54955/api/orders
+Authorization: Bearer YOUR_TOKEN
+
+### Get order by ID (replace 1 with actual order ID)
+GET http://localhost:54955/api/orders/1
+Authorization: Bearer YOUR_TOKEN
+
+### Get order by order number
+GET http://localhost:54955/api/orders/number/ORD-XXXXXXX
+Authorization: Bearer YOUR_TOKEN
+
+### Cancel order
+PUT http://localhost:54955/api/orders/1/cancel
+Authorization: Bearer YOUR_TOKEN
+
+### Admin: Get all orders (need ADMIN role)
+GET http://localhost:54955/api/orders/admin/all
+Authorization: Bearer YOUR_ADMIN_TOKEN
+
+### Admin: Update order status
+PUT http://localhost:54955/api/orders/admin/1/status?status=CONFIRMED
+Authorization: Bearer YOUR_ADMIN_TOKEN
+
+### Admin: Update payment status
+PUT http://localhost:54955/api/orders/admin/1/payment?paymentStatus=PAID
+Authorization: Bearer YOUR_ADMIN_TOKEN
+
+### Admin: Add tracking number
+PUT http://localhost:54955/api/orders/admin/1/tracking?trackingNumber=1Z999AA10123456784
+Authorization: Bearer YOUR_ADMIN_TOKEN

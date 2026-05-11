@@ -1,0 +1,111 @@
+### ============================================
+### COMPLETE E-COMMERCE API TEST
+### Test the entire workflow from start to finish
+### ============================================
+
+### 1. REGISTER NEW USER
+POST http://localhost:54955/api/auth/register
+Content-Type: application/json
+
+{
+    "email": "buyer@example.com",
+    "password": "buyer123",
+    "firstName": "Test",
+    "lastName": "Buyer"
+}
+
+> {% client.global.set("token" , response.body.token); %}
+
+
+
+### 2. LOGIN AND SAVE TOKEN
+POST http://localhost:54955/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "buyer@example.com",
+    "password": "buyer123"
+}
+
+> {% client.global.set("token" , response.body.token); %}
+### 3. VIEW PRODUCTS BEFORE SHOPPING
+GET http://localhost:54955/api/products
+Authorization: Bearer {{token}}
+
+### 4. ADD ITEMS TO CART
+POST http://localhost:54955/api/cart/add/1?quantity=1
+Authorization: Bearer {{token}}
+
+POST http://localhost:54955/api/cart/add/2?quantity=2
+Authorization: Bearer {{token}}
+
+### 5. VIEW CART
+GET http://localhost:54955/api/cart
+Authorization: Bearer {{token}}
+
+### 6. UPDATE QUANTITIES
+PUT http://localhost:54955/api/cart/update/1?quantity=2
+Authorization: Bearer {{token}}
+
+### 7. REMOVE ONE ITEM
+DELETE http://localhost:54955/api/cart/remove/2
+Authorization: Bearer {{token}}
+
+### 8. FINAL CART VIEW
+GET http://localhost:54955/api/cart
+Authorization: Bearer {{token}}
+
+### 9. CLEAR CART (checkout complete)
+DELETE http://localhost:54955/api/cart/clear
+Authorization: Bearer {{token}}
+
+### 10. VERIFY CHECKOUT COMPLETE
+GET http://localhost:54955/api/cart
+Authorization: Bearer {{token}}
+
+### ============================================
+### ADMIN FUNCTIONS (if implemented)
+### ============================================
+
+### Login as admin (if you have admin role)
+POST http://localhost:54955/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "admin@example.com",
+    "password": "admin123"
+}
+
+### View all products (admin)
+GET http://localhost:54955/api/products
+Authorization: Bearer {{token}}
+
+### Create product (admin)
+POST http://localhost:54955/api/products
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "name": "New Admin Product",
+    "description": "Added by admin",
+    "sku": "ADM-001",
+    "price": 99.99,
+    "stockQuantity": 100,
+    "category": "Misc",
+    "active": true
+}
+
+### Update product (admin)
+PUT http://localhost:54955/api/products/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "name": "Updated by Admin",
+    "description": "Admin made changes",
+    "sku": "LAP-001",
+    "price": 999.99,
+    "stockQuantity": 25,
+    "category": "Electronics",
+    "active": true
+}

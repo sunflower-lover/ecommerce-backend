@@ -1,0 +1,78 @@
+### ==================== USER ACCOUNT ====================
+
+### 1. Register a new user
+POST http://localhost:54955/api/auth/register
+Content-Type: application/json
+
+{
+    "email": "regular@example.com",
+    "password": "password123",
+    "firstName": "Regular",
+    "lastName": "User"
+}
+
+### 2. Login as regular user
+POST http://localhost:54955/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "regular@example.com",
+    "password": "password123"
+}
+
+### Save the USER_TOKEN from response
+
+### 3. User can view products (public - no token needed)
+GET http://localhost:54955/api/products
+
+### 4. User can access their cart (needs authentication)
+GET http://localhost:54955/api/cart
+Authorization: Bearer USER_TOKEN
+
+### 5. User can create orders
+POST http://localhost:54955/api/orders
+Content-Type: application/json
+Authorization: Bearer USER_TOKEN
+
+{
+    "shippingAddress": "123 User St",
+    "billingAddress": "123 User St",
+    "paymentMethod": "CREDIT_CARD"
+}
+
+### 6. User CANNOT access admin endpoints (should return 403 Forbidden)
+GET http://localhost:54955/api/admin/users
+Authorization: Bearer USER_TOKEN
+
+### ==================== ADMIN ACCOUNT ====================
+
+### 7. Login as admin
+POST http://localhost:54955/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "admin@ecommerce.com",
+    "password": "admin123"
+}
+
+### Save the ADMIN_TOKEN from response
+
+### 8. Admin can view all users
+GET http://localhost:54955/api/admin/users
+Authorization: Bearer ADMIN_TOKEN
+
+### 9. Admin can update user roles
+PUT http://localhost:54955/api/admin/users/2/role?role=ADMIN
+Authorization: Bearer ADMIN_TOKEN
+
+### 10. Admin can view all orders
+GET http://localhost:54955/api/admin/orders
+Authorization: Bearer ADMIN_TOKEN
+
+### 11. Admin can update order status
+PUT http://localhost:54955/api/admin/orders/1/status?status=CONFIRMED
+Authorization: Bearer ADMIN_TOKEN
+
+### 12. Admin can view dashboard stats
+GET http://localhost:54955/api/admin/stats
+Authorization: Bearer ADMIN_TOKEN

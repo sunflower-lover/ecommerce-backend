@@ -1,0 +1,67 @@
+### Test 1: Register with invalid email (should fail)
+POST http://localhost:54955/api/auth/register
+Content-Type: application/json
+
+{
+    "email": "invalid-email",
+    "password": "pass123",
+    "firstName": "John"
+}
+
+### Expected Response:
+{
+    "status": 400,
+    "message": "Validation failed",
+    "errors": {
+        "email": "Please provide a valid email address"
+    }
+}
+
+### Test 2: Register with weak password (should fail)
+POST http://localhost:54955/api/auth/register
+Content-Type: application/json
+
+{
+    "email": "test@example.com",
+    "password": "weak",
+    "firstName": "John",
+    "lastName": "Doe"
+}
+
+### Expected Response: Password must be at least 6 characters
+
+### Test 3: Register with valid data (should succeed)
+POST http://localhost:54955/api/auth/register
+Content-Type: application/json
+
+{
+    "email": "valid@example.com",
+    "password": "StrongP@ss123",
+    "firstName": "John",
+    "lastName": "Doe"
+}
+
+### Test 4: Create product with invalid price (should fail)
+POST http://localhost:54955/api/products
+Content-Type: application/json
+Authorization: Bearer ADMIN_TOKEN
+
+{
+    "name": "Test",
+    "sku": "TEST001",
+    "price": -10.99,
+    "stockQuantity": 10
+}
+
+### Expected Response: Price must be greater than 0
+
+### Test 5: Create order with invalid payment method (should fail)
+POST http://localhost:54955/api/orders
+Content-Type: application/json
+Authorization: Bearer USER_TOKEN
+
+{
+    "shippingAddress": "123 Main St",
+    "billingAddress": "123 Main St",
+    "paymentMethod": "INVALID_METHOD"
+}

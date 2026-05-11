@@ -1,0 +1,35 @@
+### First, login to get token
+POST http://localhost:54955/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "test@example.com",
+    "password": "password123"
+}
+
+### Save the token from response, then use it below
+### Replace YOUR_TOKEN with the actual token
+
+### Get Cart (View current cart)
+GET http://localhost:54955/api/cart
+Authorization: Bearer YOUR_TOKEN
+
+### Add item to cart (productId=1, quantity=2)
+POST http://localhost:54955/api/cart/add/1?quantity=2
+Authorization: Bearer YOUR_TOKEN
+
+### Add another item
+POST http://localhost:54955/api/cart/add/2?quantity=1
+Authorization: Bearer YOUR_TOKEN
+
+### Update item quantity (change product 1 to quantity 5)
+PUT http://localhost:54955/api/cart/update/1?quantity=5
+Authorization: Bearer YOUR_TOKEN
+
+### Remove item from cart
+DELETE http://localhost:54955/api/cart/remove/2
+Authorization: Bearer YOUR_TOKEN
+
+### Clear entire cart
+DELETE http://localhost:54955/api/cart/clear
+Authorization: Bearer YOUR_TOKEN

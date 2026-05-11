@@ -1,0 +1,87 @@
+### ============================================
+### STEP 1: LOGIN FIRST TO GET TOKEN
+### ============================================
+
+### Login as Admin
+POST http://localhost:54955/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "admin@gmail.com",
+    "password": "admin123"
+}
+
+> {% client.global.set("token", response.body.token); %}
+
+### ============================================
+### STEP 2: CREATE PRODUCTS (USING THE TOKEN)
+### ============================================
+
+### Create Product 1 - Laptop
+POST http://localhost:54955/api/products
+Content-Type: application/json
+
+
+{
+    "name": "Gaming Laptop",
+    "description": "16GB RAM, 512GB SSD, RTX 4060",
+    "sku": "LAP-001",
+    "price": 1299.99,
+    "stockQuantity": 50,
+    "category": "Electronics",
+    "active": true
+}
+
+### Create Product 2 - Wireless Mouse
+POST http://localhost:54955/api/products
+Content-Type: application/json
+
+
+{
+    "name": "Wireless Mouse",
+    "description": "Ergonomic, Bluetooth, 4000 DPI",
+    "sku": "MOU-002",
+    "price": 29.99,
+    "stockQuantity": 200,
+    "category": "Electronics",
+    "active": true
+}
+
+### Create Product 3 - Mechanical Keyboard
+POST http://localhost:54955/api/products
+Content-Type: application/json
+
+
+{
+    "name": "Mechanical Keyboard",
+    "description": "RGB, Mechanical switches, Tenkeyless",
+    "sku": "KBD-003",
+    "price": 89.99,
+    "stockQuantity": 100,
+    "category": "Electronics",
+    "active": true
+}
+
+### Create Product 4 - Nosie Cancelling Headphones
+POST http://localhost:54955/api/products
+Content-Type: application/json
+
+{
+    "name": "Nosie Cancelling Headphones",
+    "description": "Nosie Cancelling Headphones with 30hr battery life",
+    "sku": "AUD-005",
+    "price": 105.99,
+    "stockQuantity": 75,
+    "category": "Electronics",
+    "active": true
+}
+
+### ============================================
+### STEP 3: GET ALL PRODUCTS TO VERIFY
+### ============================================
+
+### Get all products (should show all created products)
+GET http://localhost:54955/api/products
+
+### DELETE ALL PRODUCTS (Admin only)
+DELETE http://localhost:54955/api/products/all
